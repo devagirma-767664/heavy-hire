@@ -9,9 +9,9 @@ const pool = new Pool({
 });
 
 pool.on('connect', async (client) => {
-  console.log('New client connected, setting search_path...');
+
   await client.query('SET search_path TO public');
-  console.log('search_path set successfully');
+  
 });
 
 module.exports = pool;
