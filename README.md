@@ -24,6 +24,23 @@ workflows covering contract approval, machine assignment, usage tracking, and ma
 - **Full audit trail:** the system tracks machine status, cost, maintenance history, and
   usage against contract terms, keeping a complete record of client history.
 
+## Screenshots
+
+**Login**
+![Login](screenshots/login.png)
+
+**Supervisor Dashboard**
+![Supervisor Dashboard](screenshots/supervisor-dashboard.png)
+
+**Contract Review**
+![Contract Review](screenshots/contract-review.png)
+
+**Usage Log (with hour-gauge photo verification)**
+![Usage Log](screenshots/usage-log.png)
+
+**Maintenance Request**
+![Maintenance Request](screenshots/maintenance-request.png)
+
 ## Tech Stack
 - **Frontend:** React (Vite, TypeScript), Axios
 - **Backend:** Node.js, Express.js
