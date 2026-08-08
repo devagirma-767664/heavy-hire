@@ -52,20 +52,35 @@ const OperatorEndUsagePage: React.FC = () => {
           {/* Usage log selector */}
           <div>
             <label className="block text-gray-200 mb-2">Active Usage Log</label>
-            <select
-              value={selectedLog ?? ""}
-              onChange={(e) => setSelectedLog(Number(e.target.value))}
-              className="bg-gray-900 text-white p-2 rounded w-full focus:ring-2 focus:ring-yellow-400"
-            >
-              <option value="">Select usage log</option>
-              {operatorLogs
-                .filter(l => l.activated && (!l.end_time || l.approved === false)) // ✅ only activated logs not yet ended
-                .map(l => (
-                  <option key={l.id} value={l.id}>
-                    Contract #{l.contract_id} • Machine {l.machine_id}
-                  </option>
-                ))}
-            </select>
+            {(() => {
+              const eligibleLogs = operatorLogs.filter(
+                l => l.activated && (!l.end_time || l.approved === false)
+              ); // ✅ only activated logs not yet ended
+
+              if (!loading && eligibleLogs.length === 0) {
+                return (
+                  <p className="text-gray-400 bg-gray-900 p-3 rounded">
+                    No active usage logs right now. Once you start usage and your
+                    supervisor activates it, it'll show up here.
+                  </p>
+                );
+              }
+
+              return (
+                <select
+                  value={selectedLog ?? ""}
+                  onChange={(e) => setSelectedLog(Number(e.target.value))}
+                  className="bg-gray-900 text-white p-2 rounded w-full focus:ring-2 focus:ring-yellow-400"
+                >
+                  <option value="">Select usage log</option>
+                  {eligibleLogs.map(l => (
+                    <option key={l.id} value={l.id}>
+                      Contract #{l.contract_id} • Machine {l.machine_id}
+                    </option>
+                  ))}
+                </select>
+              );
+            })()}
           </div>
 
           {/* Gauge input */}

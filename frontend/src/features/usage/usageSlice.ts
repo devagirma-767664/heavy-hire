@@ -29,6 +29,7 @@ export interface UsageLog {
   supervisor_reviewed: boolean;
   supervisor_id?: number;
   approved?: boolean;
+  activated?: boolean;
 }
 
 interface UsageState {

@@ -149,13 +149,10 @@ const listOperatorUsageLogs = async (req, res) => {
     const operatorId = req.user.id; // ✅ use authMiddleware
     const logs = await getOperatorUsageLogs(operatorId);
 
-    if (!logs || logs.length === 0) {
-      return res.status(404).json({ error: 'No active usage logs found for this operator' });
-    }
-
-    console.log("Operator usage logs:", logs);
-
-    res.json({ logs });
+    // ✅ An operator with zero active/pending logs is a normal, valid state
+    // (e.g. nothing started yet, or a log is awaiting supervisor activation) —
+    // not an error condition. Always return 200 with whatever logs exist.
+    res.json({ logs: logs || [] });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
